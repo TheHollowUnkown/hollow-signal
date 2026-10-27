@@ -243,3 +243,330 @@ footer { border-top-style: dashed; border-top-color: rgba(98, 157, 114, .42); }
   .gate-line button { transition:none; }
   .gate-line button:active { transform:none; }
 }
+
+
+/* ========================================================================
+   HOLLOW // MK-II  /  INDUSTRIAL MEMORY TERMINAL
+   Retro-futurist field equipment. Visual-only patch for the HOLLOW V2 site.
+   No HTML or JS edits required. Compatible with all V2 puzzle stages.
+   ======================================================================== */
+
+:root {
+  --bg: #070a09;
+  --paper: #101713;
+  --border: #4b5b4b;
+  --ink: #d6dfd1;
+  --dim: #a4ad9b;
+  --mint: #add7ac;
+  --red: #c58375;
+  --h-amber: #d6b77e;
+  --h-amber-dark: #806849;
+  --h-steel: #35433b;
+  --h-black: #090e0b;
+}
+
+html { background:#070a09; }
+body {
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse 850px 420px at 50% -190px, rgba(118,114,76,.115), transparent 90%),
+    repeating-linear-gradient(90deg, transparent 0 99px, rgba(186,197,151,.013) 99px 100px),
+    linear-gradient(115deg,#090e0b 0%,#0e1512 58%,#080a09 100%);
+  letter-spacing:.008em;
+}
+body::before {
+  z-index:90;
+  opacity:.18;
+  background:repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.54) 3px 4px);
+}
+body::after {
+  z-index:91;
+  background:
+    radial-gradient(ellipse 95% 90% at 50% 45%,transparent 62%,rgba(0,0,0,.33) 100%),
+    linear-gradient(180deg,transparent 46%, rgba(223,210,153,.012) 51%,transparent 58%);
+  background-size:100% 100%,100% 240%;
+  animation:crtSweep 21s linear infinite;
+}
+
+/* A steel enclosure rather than a floating web card. */
+.shell {
+  width:min(100% - 34px,700px);
+  padding:27px 0 62px;
+}
+.shell main {
+  padding:24px 27px 28px;
+  border:1px solid #596254;
+  outline:1px solid rgba(15,22,18,.85);
+  outline-offset:4px;
+  background:
+    linear-gradient(90deg,rgba(224,211,161,.028) 0 1px,transparent 1px) 0 0 / 40px 100%,
+    linear-gradient(180deg,rgba(65,82,59,.17),rgba(11,22,16,.1) 17%,rgba(8,16,12,.78) 100%),
+    #0c130f;
+  box-shadow:
+    0 0 0 5px #0a100c,
+    0 0 0 6px #344238,
+    0 21px 52px rgba(0,0,0,.67),
+    inset 0 0 0 3px rgba(15,25,18,.8),
+    inset 0 0 80px rgba(84,98,55,.055);
+  animation:terminalBoot .32s ease-out both;
+}
+.shell main::before {
+  width:71px;
+  height:4px;
+  top:-1px;
+  left:18px;
+  background: repeating-linear-gradient(90deg, #c0a474 0 8px, #313b31 8px 12px);
+  box-shadow:none;
+}
+.shell main::after {
+  top:14px;right:15px;
+  width:7px;height:7px;
+  background:#d1a263;
+  border:1px solid #aa8656;
+  box-shadow:0 0 0 4px rgba(120,89,47,.17),0 0 11px rgba(213,162,88,.21);
+  animation:mechanismLed 5s ease-in-out infinite;
+}
+@keyframes mechanismLed { 0%,100%{opacity:.83} 48%,55%{opacity:.42} }
+
+/* Manufacturer plate. The site still says HOLLOW, no logo changes needed. */
+.archive-banner {
+  min-height:63px;
+  gap:14px;
+  color:#adb5a4;
+  border-bottom:1px solid #65715d;
+  padding:1px 22px 16px 0;
+  letter-spacing:.13em;
+  font-weight:600;
+  text-transform:uppercase;
+  line-height:1.5;
+}
+.archive-mark {
+  width:49px;height:49px;
+  background:linear-gradient(155deg,#d5c398,#9d8b67);
+  color:#151b16;
+  border:1px solid #d6c395;
+  box-shadow:inset 0 0 0 3px #17211b,inset 0 0 0 4px #c5b58f, 3px 3px 0 #070b09;
+  font:700 24px 'Space Grotesk',sans-serif;
+  text-shadow:none;
+  letter-spacing:-.08em;
+  flex-shrink:0;
+}
+.topline {
+  border-bottom:1px solid rgba(152,160,121,.2);
+  margin:1px 0 0;
+  padding:15px 0 10px;
+  color:#9ea996;
+  font-size:10px;
+  letter-spacing:.12em;
+}
+.topline > span:first-child::before {
+  content:"SYS. ";
+  color:#c0a777;
+  font-weight:700;
+}
+.topline > span:last-child {
+  padding:4px 9px;
+  background:rgba(68,37,28,.22);
+  border:1px solid #735349;
+  color:#e7b1a2;
+  font-size:9px;
+  letter-spacing:.11em;
+}
+.topline > span:last-child::before {
+  background:#d98c72;
+  box-shadow:0 0 7px rgba(228,126,96,.40);
+  animation:linkPulse 4.5s ease-in-out infinite;
+}
+
+h1 {
+  font-family:'Space Grotesk', 'IBM Plex Mono',monospace;
+  font-size:clamp(26px,5.6vw,39px);
+  font-weight:700;
+  letter-spacing:.006em;
+  line-height:1.17;
+  color:#e5e7d9;
+  text-shadow:1px 1px 0 rgba(0,0,0,.8);
+  text-transform:uppercase;
+  margin:19px 0 24px;
+}
+h1::before {
+  content:"";
+  display:inline-block;
+  width:9px;height:18px;
+  margin-right:12px;
+  background:#b7a275;
+  box-shadow:3px 0 0 #314335;
+  vertical-align:1px;
+}
+h2 {
+  color:#d1d8bc;
+  font-family:'Space Grotesk','IBM Plex Mono',monospace;
+  letter-spacing:.07em;
+  font-size:16px;
+  text-transform:uppercase;
+}
+.kicker { color:#cdb98d; }
+.muted, .micro {color:#a7b2a0;}
+.lead {color:#e7e9d7;}
+strong, .recovered {color:#e5e9d7;}
+
+/* Industrial modular bays and printed readouts. */
+.panel {
+  position:relative;
+  margin:18px 0;
+  padding:21px 20px 18px;
+  border:1px solid #4b604e;
+  border-left:3px solid #a8b19a;
+  background:
+    linear-gradient(90deg,rgba(179,183,140,.025) 0 1px,transparent 1px) 0 0 / 28px 100%,
+    linear-gradient(150deg,#1b2920 0%,#101a14 42%,#0b130e 100%);
+  box-shadow:inset 0 1px 0 rgba(216,218,174,.10), 3px 4px 0 rgba(0,0,0,.24);
+}
+.panel::after {
+  width:24px;height:4px;
+  top:0;right:0;
+  border:0;
+  background:repeating-linear-gradient(90deg,#a99a78 0 4px,transparent 4px 7px);
+  opacity:.46;
+}
+.panel.warn {
+  border-left-color:#b16f58;
+  border-color:#664f42;
+  background:linear-gradient(140deg,#221b17,#101512);
+}
+.file-meta {
+  padding-bottom:8px;
+  margin-bottom:9px;
+  border-bottom:1px solid rgba(165,179,147,.20);
+  color:#cfbf95;
+  font-size:10px;
+  font-weight:500;
+}
+.glitch {
+  color:#dedcc7;
+  text-shadow:1px 0 rgba(175,203,145,.22);
+  animation:none;
+}
+pre {
+  border:1px solid #475748;
+  border-left:3px solid #776f50;
+  background:#090f0b;
+  color:#d9e3d4;
+  box-shadow:inset 0 0 22px rgba(0,0,0,.28);
+  font-size:12px;
+}
+.log {
+  padding:14px 15px;
+  border:1px solid #664c3c;
+  border-left:3px solid #a9795b;
+  background:linear-gradient(120deg,rgba(67,44,32,.34),rgba(26,22,18,.58));
+  color:#d3b9a2;
+  font-size:12px;
+}
+.record {
+  background:#101c15;
+  border:1px solid #53664e;
+  box-shadow:inset 3px 0 0 #6d7860;
+}
+.record .id {color:#cfba8b;}
+.rule { background:#55614d; }
+.stamp {
+  font-variant-numeric:tabular-nums;
+  padding:12px 11px;
+  color:#a7b596;
+  background:rgba(15,29,20,.7);
+  border:1px dashed #5a6954;
+  letter-spacing:.085em;
+}
+
+/* Authorization bay. Readable, functional, keyboard-accessible. */
+.recovery-gate {
+  border-color:#7c8566;
+  border-left:3px solid #c3b180;
+  box-shadow:inset 0 0 0 2px rgba(19,33,22,.75),3px 4px 0 rgba(0,0,0,.22);
+  background:linear-gradient(145deg,#1c2a1c,#101b13);
+}
+.recovery-gate::before {
+  content:"AUTH // INPUT BUS ACTIVE";
+  font-family:'IBM Plex Mono',Consolas,monospace;
+  color:#d2bb86;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.12em;
+  border-bottom:1px solid rgba(192,180,137,.21);
+  padding-bottom:9px;
+  margin-bottom:16px;
+}
+.recovery-gate label { color:#aebba3; font-size:10px; letter-spacing:.14em; }
+.gate-line {gap:8px;align-items:stretch;}
+.gate-line input {
+  min-height:47px;
+  background:#070e0a;
+  color:#e2ebd7;
+  border:1px solid #77846c;
+  border-bottom:2px solid #a6b291;
+  box-shadow:inset 2px 2px 5px rgba(0,0,0,.45);
+  caret-color:#ebc987;
+  border-radius:0;
+}
+.gate-line input:focus {
+  border-color:#d1c390;
+  outline:1px solid #e4d59e;
+  outline-offset:2px;
+  box-shadow:0 0 0 4px rgba(214,187,123,.11);
+}
+.gate-line button {
+  min-height:47px;
+  background:#b7ab86;
+  border:1px solid #d4c79f;
+  border-bottom:3px solid #675a3f;
+  box-shadow:inset 0 1px 0 rgba(255,249,218,.31),2px 3px 0 rgba(0,0,0,.4);
+  color:#121711;
+  font-size:12px;
+  letter-spacing:.12em;
+  border-radius:0;
+}
+.gate-line button:hover { background:#d6c597;box-shadow:inset 0 1px 0 rgba(255,249,218,.45),2px 3px 0 rgba(0,0,0,.4); }
+.gate-line button:active { transform:translate(1px,1px); }
+.gate-line button:focus-visible,.gate-line input:focus-visible,a:focus-visible {
+  outline:2px solid #f3dfaa; outline-offset:3px;
+}
+#response { color:#d3ddca; }
+.ok {color:#bcd9ad;}
+.err {color:#eba996;}
+a {color:#dec690;text-decoration-thickness:1px;}
+a:hover {color:#ffebbd;}
+
+/* Less browser-like audio, more archival device. */
+audio {filter:grayscale(.9) sepia(.22);border:1px solid #505e4d;background:#121b13;}
+footer {
+  margin-top:33px;
+  padding-top:13px;
+  border-top:1px solid #535f4c;
+  color:#9ba891;
+  font-size:10px;
+  letter-spacing:.085em;
+  text-transform:uppercase;
+}
+footer::before {
+  content:"◆  SYS END // ";
+  color:#b6a276;
+}
+
+@media(max-width:560px) {
+  .shell { width:min(100% - 22px,700px);padding:13px 0 38px; }
+  .shell main {padding:17px 15px 22px;}
+  .archive-banner {font-size:9px;gap:10px;letter-spacing:.055em;}
+  .archive-mark {width:43px;height:43px;font-size:22px;}
+  h1 {font-size:clamp(24px,7.3vw,35px);margin:16px 0 19px;}
+  h1::before {width:6px;height:14px;margin-right:8px;}
+  .panel {padding:15px 14px;}
+  .topline > span:first-child::before {content:"";}
+  .gate-line input {min-width:0;width:100%;}
+  .gate-line button {width:100%;}
+  footer::before {content:"◆  END // ";}
+}
+@media (prefers-reduced-motion:reduce) {
+  body::after,.shell main,.shell main::after,.topline > span:last-child::before {animation:none !important;}
+  .gate-line button {transition:none !important;}
+}
