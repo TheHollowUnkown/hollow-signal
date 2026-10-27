@@ -4,3 +4,242 @@ html{background:var(--bg);scroll-behavior:smooth}body{margin:0;min-height:100vh;
 body:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.16;background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,#000 4px)}
 .shell{width:min(100% - 34px,690px);margin:0 auto;padding:30px 0 70px}main{min-width:0}.archive-banner{display:flex;align-items:center;gap:13px;border-bottom:1px solid var(--border);padding-bottom:15px;color:var(--dim);font-size:10px;letter-spacing:.11em}.archive-mark{font:700 23px 'Space Grotesk',sans-serif;border:1px solid var(--mint);width:43px;height:43px;display:grid;place-items:center;color:var(--mint);flex:0 0 auto}.topline{display:flex;justify-content:space-between;flex-wrap:wrap;gap:9px;padding:20px 0 8px;color:var(--dim);font-size:9px;letter-spacing:.1em}.topline>span:last-child{color:var(--mint)}
 h1{font:700 clamp(28px,6.6vw,46px)/1.12 'Space Grotesk',sans-serif;letter-spacing:-.035em;margin:14px 0 22px;color:#f3fcf5}h2{font:700 18px 'Space Grotesk',sans-serif;letter-spacing:.01em;color:var(--mint);margin:0 0 12px}p{margin:12px 0}.panel{border:1px solid var(--border);border-left:3px solid #719f89;background:linear-gradient(145deg,#14231e,#0b1514);padding:20px 22px;margin:19px 0;box-shadow:0 7px 20px #0006}.panel.warn{border-left-color:var(--red)}.panel p:first-child{margin-top:0}.panel p:last-child{margin-bottom:0}.lead{font-size:15px}.muted{color:var(--dim)}.micro{font-size:10px;color:var(--dim);letter-spacing:.05em}.kicker{font-size:11px;letter-spacing:.15em;color:var(--mint);font-weight:600}strong{color:#f2fff2}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:15px;border:1px solid #2d443d;background:#08100e;font:12px/1.85 'IBM Plex Mono',Consolas,monospace;color:#e0eee4;margin:13px 0}a{color:var(--mint);text-underline-offset:4px}.log{border-left:2px solid var(--red);background:#1c1112;padding:13px 16px;margin:16px 0;color:#c9aca7;font-size:12px}.rule{height:1px;background:var(--border);margin:23px 0}.file-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;color:var(--dim);font-size:10px;letter-spacing:.06em}.stamp{font-size:10px;letter-spacing:.12em;color:#719a8b;border-top:1px dashed #38574b;margin-top:27px;padding-top:13px}.glitch{color:#e7c4bc;text-shadow:1px 0 #538d7a}.recovery-gate label{display:block;font-size:11px;letter-spacing:.12em;color:var(--dim);margin-bottom:10px}.gate-line{display:flex;gap:9px;flex-wrap:wrap}.gate-line input{flex:1;min-width:170px;background:#081410;border:1px solid #5a8271;padding:12px 14px;color:#e3ffec;font:600 16px 'IBM Plex Mono',monospace;min-height:45px;letter-spacing:.08em}.gate-line button{border:0;background:var(--mint);color:#07120d;padding:12px 19px;font:700 12px 'IBM Plex Mono',monospace;letter-spacing:.1em;cursor:pointer}.gate-line button:hover{background:#d8ffe8}.gate-line button:disabled{opacity:.5;cursor:progress}.gate-line button:focus-visible,.gate-line input:focus-visible,a:focus-visible{outline:2px solid #fff;outline-offset:3px}#response{min-height:1.4em;margin-top:8px;font-size:11px}.err{color:#ffada1}.ok{color:var(--mint)}.recovered{font-weight:700;color:var(--mint)}.records{display:grid;gap:11px}.record{border:1px solid #304b41;padding:12px 15px;background:#0a1412}.record .id{color:var(--mint);font-size:11px;letter-spacing:.08em}audio{display:block;width:100%;margin:15px 0;filter:grayscale(1) sepia(.25)}footer{border-top:1px solid var(--border);margin-top:38px;padding-top:15px;color:#638474;font-size:10px}.fauxcode{font-size:12px;font-weight:600;color:#b1ead0}.outage{font-size:12px;color:#b5cdbf}.blink{animation:flicker 1.8s step-end infinite}@keyframes flicker{50%{opacity:.25}}@media(max-width:560px){.shell{width:min(100% - 28px,690px);padding-top:16px}.archive-banner{font-size:9px;letter-spacing:.03em}.panel{padding:15px;margin:15px 0}pre{padding:10px;font-size:11px}.gate-line input,.gate-line button{width:100%}h1{font-size:clamp(26px,8vw,37px)}}@media(prefers-reduced-motion:reduce){.blink{animation:none}html{scroll-behavior:auto}}
+
+/* =====================================================================
+   HOLLOW // TERMINAL VISUAL PATCH 1.1
+   Visual-only override. No new elements or JavaScript required.
+   Keeps V2 inputs, puzzle logic and 690px centered layout intact.
+   ===================================================================== */
+:root {
+  --bg: #050a09;
+  --paper: #0b1713;
+  --border: #284e3d;
+  --ink: #d7e9d9;
+  --dim: #8aa99a;
+  --mint: #b1f4cc;
+  --red: #cb7f75;
+}
+
+html { background: #050a09; }
+body {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -15%, rgba(40, 83, 63, .32), transparent 72%),
+    repeating-linear-gradient(90deg, rgba(126, 195, 153, .016) 0 1px, transparent 1px 56px),
+    #050a09;
+  letter-spacing: .002em;
+}
+/* Delicate phosphor scanlines and dark CRT corners. */
+body::before {
+  opacity: .25;
+  background: repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,.42) 4px);
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 51;
+  background:
+    radial-gradient(ellipse 90% 85% at 50% 43%, transparent 60%, rgba(0,0,0,.31) 100%),
+    linear-gradient(180deg, transparent 0%, rgba(154,251,195,.025) 49%, transparent 58%);
+  background-size: 100% 100%, 100% 220%;
+  animation: crtSweep 15s linear infinite;
+}
+@keyframes crtSweep {
+  0% { background-position: 0 0, 0 -150%; }
+  100% { background-position: 0 0, 0 150%; }
+}
+
+/* Framed terminal viewport: compact, centered, no nav and no extra scroll. */
+.shell { width: min(100% - 30px, 700px); padding: 26px 0 54px; }
+.shell main {
+  position: relative;
+  padding: 22px 26px 27px;
+  background:
+    linear-gradient(135deg, rgba(20, 42, 31, .15), transparent 42%),
+    rgba(5, 14, 11, .82);
+  border: 1px solid rgba(94, 153, 118, .30);
+  box-shadow: 0 0 0 4px rgba(9, 19, 14, .7), 0 12px 56px rgba(0,0,0,.48), inset 0 0 55px rgba(5, 29, 16, .16);
+  animation: terminalBoot .42s ease-out both;
+}
+.shell main::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: 39%;
+  background: linear-gradient(90deg, var(--mint), rgba(177,244,204,.08));
+  box-shadow: 0 0 14px rgba(140,244,173,.20);
+}
+.shell main::after {
+  content: "";
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  background: #78ad8a;
+  border: 1px solid #adcbb3;
+  box-shadow: 0 0 7px rgba(108,236,145,.22);
+  opacity: .7;
+}
+@keyframes terminalBoot {
+  from { opacity: .64; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.archive-banner { padding-bottom: 16px; border-bottom-style: dashed; border-bottom-color: #35664d; }
+.archive-mark {
+  border: 1px solid #74c998;
+  color: #c0ffda;
+  background: linear-gradient(145deg,#132b1d,#0a120f);
+  text-shadow: 0 0 10px rgba(164, 255, 197, .3);
+  box-shadow: inset 0 0 0 2px #07120a, 0 0 12px rgba(100,192,134,.1);
+}
+.topline {
+  padding: 15px 0 5px;
+  border: 0;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+/* The status text stays visible. Only its red LED gently pulses. */
+.topline > span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #f4b6a7;
+  padding: 3px 7px;
+  background: rgba(99, 31, 28, .15);
+  border: 1px solid rgba(174, 86, 76, .33);
+  letter-spacing: .12em;
+  animation: none;
+}
+.topline > span:last-child::before {
+  content:"";
+  display:inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e08f77;
+  box-shadow: 0 0 6px rgba(235, 134, 110, .55);
+  animation: linkPulse 3.4s ease-in-out infinite;
+}
+@keyframes linkPulse { 0%, 100% { opacity: .95 } 50% { opacity: .32 } }
+
+h1 {
+  color: #eaffed;
+  font-family: 'IBM Plex Mono',Consolas,monospace;
+  text-transform: uppercase;
+  font-size: clamp(24px, 5.8vw, 40px);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -.025em;
+  margin: 15px 0 22px;
+  text-shadow: 0 0 17px rgba(103, 233, 151, .11);
+}
+h1::before { content: "> "; color: #81bc90; }
+h2 {
+  font-family: 'IBM Plex Mono',Consolas,monospace;
+  font-size: 15px;
+  letter-spacing: .045em;
+}
+.kicker { color: #a5dbb7; }
+.panel {
+  position: relative;
+  background: linear-gradient(132deg, rgba(21, 43, 32, .84), rgba(7, 19, 14, .97));
+  border: 1px solid #2d5340;
+  border-left: 2px solid #79be96;
+  padding: 19px 21px;
+  box-shadow: inset 0 1px 0 rgba(179,246,202,.035), 0 8px 20px rgba(0,0,0,.24);
+}
+.panel::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 12px; height: 12px;
+  border-top: 1px solid rgba(152,236,181,.36);
+  border-right: 1px solid rgba(152,236,181,.36);
+  pointer-events: none;
+}
+.panel.warn { border-left-color: #b75f5b; background: linear-gradient(138deg,#211716,#0b1512); }
+pre {
+  border: 1px solid #244734;
+  border-left: 2px solid #426e50;
+  background: #06100b;
+  color: #d9efdf;
+  font-variant-numeric: tabular-nums;
+}
+.log {
+  border-left-color: #bb7067;
+  border-top: 1px solid #4c2927;
+  border-bottom: 1px solid #4c2927;
+  background: rgba(48, 21, 20, .49);
+  color: #dbbab0;
+}
+.record { background: #0a1810; border-color: #29543b; }
+.record .id { color: #abe2b8; }
+.stamp {
+  padding: 12px 10px;
+  background: rgba(23,51,33,.19);
+  border: 1px dashed rgba(99,153,111,.4);
+  font-variant-numeric: tabular-nums;
+}
+
+.recovery-gate {
+  border-left-color: var(--mint);
+  box-shadow: 0 0 17px rgba(60,132,84,.09);
+}
+.recovery-gate::before {
+  content: "[ INPUT CHANNEL READY ]";
+  display: block;
+  margin: -3px 0 13px;
+  font: 500 10px 'IBM Plex Mono',Consolas,monospace;
+  letter-spacing: .13em;
+  color: #7eae8e;
+}
+.gate-line input {
+  caret-color: #b1f4cc;
+  background: #040d08;
+  border: 1px solid #557d60;
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px rgba(50,89,55,.13);
+  font-family: 'IBM Plex Mono',Consolas,monospace;
+}
+.gate-line input:focus {
+  outline: 1px solid #a0d8ac;
+  outline-offset: 2px;
+  border-color: #9bd0ac;
+  box-shadow: 0 0 0 4px rgba(94,189,120,.09);
+}
+.gate-line button {
+  border: 1px solid rgba(234,255,240,.5);
+  background: #9edeb6;
+  color: #06120b;
+  box-shadow: 0 0 17px rgba(109,216,142,.08);
+  border-radius: 0;
+  transition: background .16s, box-shadow .16s;
+}
+.gate-line button:hover { background:#c5f8d3; box-shadow:0 0 14px rgba(132,232,158,.22); }
+.gate-line button:active { transform:translateY(1px); }
+#response { font-variant-numeric:tabular-nums; }
+a { color: #b8f7c9; }
+a:hover { color: #eefff1; }
+footer { border-top-style: dashed; border-top-color: rgba(98, 157, 114, .42); }
+
+/* Accessible reduced-motion, readability and small-screen layout. */
+@media (max-width: 560px) {
+  .shell { width: min(100% - 20px, 700px); padding: 10px 0 35px; }
+  .shell main { padding: 16px 14px 19px; }
+  .archive-banner { font-size: 9px; }
+  h1 { font-size: clamp(24px, 7vw, 34px); }
+  .panel { padding: 14px; }
+  .gate-line input { min-width: 0; }
+  .topline > span:last-child { letter-spacing: .03em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after, .shell main, .topline > span:last-child::before { animation:none !important; }
+  .gate-line button { transition:none; }
+  .gate-line button:active { transform:none; }
+}
