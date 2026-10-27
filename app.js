@@ -1,37 +1,24 @@
-// HOLLOW client-side checksum verification. Static site, not an access-control boundary.
-async function submitRecovery(button) {
-  const input = document.getElementById('code');
-  const out = document.getElementById('response');
-  if (!input || !out || button.disabled) return;
-  const guess = input.value.trim().toUpperCase().replace(/\s+/g, '');
-  if (!guess) { out.className = 'err'; out.textContent = 'ACCESS DENIED // ENTRY REQUIRED'; return; }
-  button.disabled = true;
-  try {
-    const raw = new TextEncoder().encode(button.dataset.salt + ':' + guess);
-    const buffer = await crypto.subtle.digest('SHA-256', raw);
-    const proof = Array.from(new Uint8Array(buffer), x => x.toString(16).padStart(2, '0')).join('');
-    if (proof === button.dataset.proof) {
-      out.className = 'ok';
-      out.textContent = 'ACCESS GRANTED // RECOVERING RECORD…';
-      sessionStorage.setItem('hollow.last', button.dataset.target);
-      setTimeout(() => { location.href = button.dataset.target; }, 650);
-    } else {
-      out.className = 'err';
-      out.textContent = 'ACCESS DENIED // ENTRY NOT RECOGNIZED';
-      input.focus();
-    }
-  } catch (e) {
-    out.className = 'err';
-    out.textContent = 'SYSTEM ERROR // SECURE CONTEXT REQUIRED';
-  } finally { button.disabled = false; }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const input = document.getElementById('code');
-  const button = document.querySelector('button.recovery-submit');
-  if (button) button.addEventListener('click', () => submitRecovery(button));
-  if (input && button) input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') { e.preventDefault(); button.click(); }
-  });
-  const stamp = document.getElementById('local-stamp');
-  if (stamp) stamp.textContent = 'ARCHIVE CLOCK // 2009.10.31';
-});
+// Static ARG client. Checksums are puzzle pacing only, not real authentication.
+(async function(){
+ const input=document.getElementById('code');
+ const button=document.querySelector('[data-proof]');
+ const message=document.getElementById('response');
+ if(!input||!button||!message)return;
+ const submit=async()=>{
+  const guess=input.value.trim().toUpperCase().replace(/\s+/g,'');
+  if(!guess){message.className='err';message.textContent='ENTRY REQUIRED';return;}
+  button.disabled=true;
+  try{
+   const bytes=new TextEncoder().encode(button.dataset.salt+':'+guess);
+   const digest=await crypto.subtle.digest('SHA-256',bytes);
+   const proof=Array.from(new Uint8Array(digest),x=>x.toString(16).padStart(2,'0')).join('');
+   if(proof===button.dataset.proof){
+    message.className='ok';message.textContent='ENTRY RECOGNIZED // FETCHING RECORD';
+    setTimeout(()=>{location.assign(button.dataset.next)},700);
+   }else{message.className='err';message.textContent='ENTRY NOT RECOGNIZED';input.focus();}
+  }catch(e){message.className='err';message.textContent='VERIFICATION UNAVAILABLE // SECURE CONNECTION REQUIRED';}
+  finally{button.disabled=false;}
+ };
+ button.addEventListener('click',submit);
+ input.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();submit();}});
+})();
